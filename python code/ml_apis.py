@@ -9,6 +9,10 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import pickle
 import json
+from pyngrok import ngrok
+from fastapi.middleware.cors import CORSMiddleware
+import nest_asyncio
+import uvicorn
 
 
 app = FastAPI()
@@ -64,3 +68,22 @@ def diabetes_pred(input_parameters: model_input):
     prediction = lasso_regression_model.predict([input_list])
     
     return prediction[0]
+
+
+
+# Public APis
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+ngrok_tunnel = ngrok.connect(8000)
+print('Public URL:', ngrok_tunnel.public_url)
+nest_asyncio.apply()
+uvicorn.run(app, port=8000)

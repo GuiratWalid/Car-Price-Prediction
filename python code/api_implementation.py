@@ -9,7 +9,7 @@ import json
 import requests
 
 
-url1 = 'http://localhost:8000/Car_Price_Linear_Regression'
+url1 = 'http://0389-102-159-185-202.ngrok.io/Car_Price_Linear_Regression'
 
 url2 = 'http://localhost:8000/Car_Price_Lasso_Regression'
 
